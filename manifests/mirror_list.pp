@@ -41,9 +41,8 @@ class gitlab_mirrors::mirror_list(
   file{"${system_user_home_dir}/sync_mirrors.rb":
     ensure => file,
     source => "puppet:///modules/gitlab_mirrors/sync_mirrors.rb",
-    require => Git[$repo_dir],
+    require => Git[$mirror_list_repo_path],
     mode => 750
-
   }
   cron{'gitlab mirrors sync job':
     command => "${system_user_home_dir}/sync_mirrors.rb $gitlab_mirrors_repo_dir_path $mirror_list 2>&1 > /dev/null",
@@ -51,7 +50,7 @@ class gitlab_mirrors::mirror_list(
     hour => '*',
     minute => '10',
     user => $system_mirror_user,
-    require => File["${repo_dir}/sync_mirrors.rb"]
+    require => File["${system_user_home_dir}/sync_mirrors.rb"]
   }
 
 }
