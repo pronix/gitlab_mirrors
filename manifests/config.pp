@@ -23,6 +23,7 @@ class gitlab_mirrors::config(
     owner => $system_mirror_user,
     group => $system_mirror_group
   }
+  package{'git':}->
   user{$system_mirror_user:
     ensure     => present,
     managehome => true
