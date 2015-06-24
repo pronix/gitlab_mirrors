@@ -5,7 +5,9 @@ class gitlab_mirrors::install{
   #  provider => 'pip',
   #}
   exec {"install gitlab3":
-    command => '/usr/bin/pip install gitlab3'
+    command => '/usr/bin/pip install gitlab3',
+    require => Exec['pip_install']
+
   }
 
 }
