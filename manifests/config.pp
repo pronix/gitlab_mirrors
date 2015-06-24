@@ -68,7 +68,7 @@ class gitlab_mirrors::config(
     branch => 'master',
     latest => true,
     origin => $mirror_repo,
-    require => User[$system_mirror_user],
+    require => [User[$system_mirror_user],Exec['start gitlab']],
     notify => Exec["chown ${repo_dir}"]
   }
 
