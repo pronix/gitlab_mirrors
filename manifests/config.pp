@@ -24,7 +24,8 @@ class gitlab_mirrors::config(
     group => $system_mirror_group
   }
   user{$system_mirror_user:
-    ensure => present,
+    ensure     => present,
+    managehome => true
   }
 
 # ssh-keygen for gitmirror user
