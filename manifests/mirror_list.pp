@@ -20,12 +20,13 @@ class gitlab_mirrors::mirror_list(
 # it is expected that you will be maintaining a separate repo that contains the mirror_list yaml file
 # since we want this repo to always have the latest list we create a cron job for it
   git{$mirror_list_repo:
-    ensure => present,
-    branch => 'master',
-    latest => true,
-    origin => $mirror_list_repo,
-    before => Cron['sync mirror list repo'],
-    notify => Exec["chown ${mirror_list_repo_path}"]
+    ensure  => present,
+    branch  => 'master',
+    latest  => true,
+    origin  => $mirror_list_repo,
+    before  => Cron['sync mirror list repo'],
+    notify  => Exec["chown ${mirror_list_repo_path}"],
+    require => Package['git']
   }
   exec{"chown ${mirror_list_repo_path}":
     command => "chown -R ${system_mirror_user}:${system_mirror_group} ${mirror_list_repo_path}",
