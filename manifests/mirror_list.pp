@@ -19,7 +19,7 @@ class gitlab_mirrors::mirror_list(
 
 # it is expected that you will be maintaining a separate repo that contains the mirror_list yaml file
 # since we want this repo to always have the latest list we create a cron job for it
-  git{$mirror_list_repo_path:
+  git{$mirror_list_repo:
     ensure => present,
     branch => 'master',
     latest => true,
@@ -41,7 +41,7 @@ class gitlab_mirrors::mirror_list(
   file{"${system_user_home_dir}/sync_mirrors.rb":
     ensure => file,
     source => "puppet:///modules/gitlab_mirrors/sync_mirrors.rb",
-    require => Git[$mirror_list_repo_path],
+    require => Git[$mirror_list_repo],
     mode => 750
   }
   cron{'gitlab mirrors sync job':
