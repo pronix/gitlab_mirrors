@@ -68,7 +68,7 @@ class gitlab_mirrors::config(
     branch => 'master',
     latest => true,
     origin => $mirror_repo,
-    require => [User[$system_mirror_user],Exec['start gitlab'], Exec['create mirror list repo']],
+    require => [User[$system_mirror_user],Exec['start gitlab'], Exec['get_private_token']],
     notify => Exec["chown ${repo_dir}"]
   }
 
