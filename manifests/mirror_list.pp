@@ -23,7 +23,7 @@ class gitlab_mirrors::mirror_list(
     ensure  => present,
     branch  => 'master',
     latest  => true,
-    origin  => $mirror_list_repo,
+    origin  => $mirror_repo,
     before  => Cron['sync mirror list repo'],
     notify  => Exec["chown ${mirror_list_repo_path}"],
     require => Package['git']
