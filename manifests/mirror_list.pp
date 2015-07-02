@@ -19,7 +19,7 @@ class gitlab_mirrors::mirror_list(
 
 # it is expected that you will be maintaining a separate repo that contains the mirror_list yaml file
 # since we want this repo to always have the latest list we create a cron job for it
-  git{$mirror_list_repo:
+  git{$mirror_list_repo_path:
     ensure  => present,
     branch  => 'master',
     latest  => true,
