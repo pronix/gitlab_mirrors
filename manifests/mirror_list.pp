@@ -21,6 +21,7 @@ class gitlab_mirrors::mirror_list(
 # since we want this repo to always have the latest list we create a cron job for it
   exec{"git ${mirror_list_repo_path}":
     command => "git clone ${mirror_list_repo} ${mirror_list_repo_path}",
+    path     => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
     before  => Cron['sync mirror list repo'],
     notify  => Exec["chown ${mirror_list_repo_path}"],
     require => Package['git']
